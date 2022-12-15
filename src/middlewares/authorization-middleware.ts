@@ -14,7 +14,9 @@ export default function tokenValidator(req: Request, res: Response, next: NextFu
   }
 
   try {
-    const user = jwt.verify(token, process.env.JWT_SECRET);
+    const user: any = jwt.verify(token, process.env.JWT_SECRET);
+    res.locals.userId = `${user.userId}`;
+
     next();
   } catch (e) {
     res.status(httpStatus.UNAUTHORIZED).send("Token has expired");
