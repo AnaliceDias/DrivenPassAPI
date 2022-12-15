@@ -5,7 +5,7 @@ import userService from "../services/user-service";
 export async function checkIfUserExists(req: Request, res: Response, next: NextFunction) {
     const { email } = req.body;
     try{
-      await userService.searchUserByEmail(email);
+      await userService.checkUniqueEmail(email);
       next();
     }catch(e){
       if(e.name === "InvalidEmailError") return res.sendStatus(httpStatus.UNPROCESSABLE_ENTITY);
