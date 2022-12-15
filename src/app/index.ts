@@ -1,6 +1,6 @@
 import express , {json, Express} from "express";
 import cors from "cors";
-import { usersRouter } from "../routers";
+import { credentialsRouter, usersRouter } from "../routers";
 import { connectDb } from "@/config";
 
 const app = express();
@@ -9,6 +9,7 @@ const app = express();
 app.use(cors())
     .use(json())
     .use("/user", usersRouter)
+    .use("/credentials", credentialsRouter)
 
 export default app;
 
