@@ -21,6 +21,7 @@ export async function singIn(req: Request, res: Response) {
         const user = await userService.searchUserByEmail(email);
         await userService.checkPassword(password, user.password);
         res.locals.userId = user.id;
+
         const token = await authenticationService.generateToken(user.id);
 
         res.status(httpStatus.OK).send(token);
