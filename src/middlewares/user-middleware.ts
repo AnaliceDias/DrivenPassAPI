@@ -9,6 +9,6 @@ export async function checkIfUserExists(req: Request, res: Response, next: NextF
       next();
     }catch(e){
       if(e.name === "InvalidEmailError") return res.sendStatus(httpStatus.UNPROCESSABLE_ENTITY);
-      return res.sendStatus(httpStatus.NOT_FOUND);
+      else return res.sendStatus(httpStatus.NOT_FOUND);
     }
 }
