@@ -2,6 +2,7 @@ import { invalidEmailError } from "../errors/invalidEmail-error";
 import userRepository from "../repositories/user-repository";
 import bcrypt from "bcrypt";
 import { notFoundError } from "@/errors/notFoundError";
+import { unauthorizedError } from "@/errors/unauthorizedError";
 
 async function checkUniqueEmail(email: string) {
     const result = await userRepository.findUserByEmail(email);
@@ -29,10 +30,18 @@ async function searchUserByEmail(email: string) {
     return result;
 }
 
+async function checkPassword(password: string, hashedPassword: string) {
+    const passwordVerified = bcrypt.compareSync(password, hashedPassword);
+    if (!passwordVerified) {
+        throw unauthorizedError();
+    }
+}
+
 const userService = {
     checkUniqueEmail,
     singUp,
     searchUserByEmail,
+    checkPassword,
 }
 
 export default userService;
