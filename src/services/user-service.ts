@@ -19,9 +19,20 @@ async function singUp(email: string, password: string) {
     return newUser;
 }
 
+async function searchUserByEmail(email: string) {
+    const result = await userRepository.findUserByEmail(email);
+
+    if (!result) {
+        throw notFoundError();
+    }
+
+    return result;
+}
+
 const userService = {
     checkUniqueEmail,
     singUp,
+    searchUserByEmail,
 }
 
 export default userService;
